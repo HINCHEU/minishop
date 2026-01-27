@@ -1,0 +1,20 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class OrderItem extends Model
+{
+    protected $primaryKey = 'order_item_id'; // matches your table
+
+    protected $fillable = [
+        'order_id',
+        'product_id',
+        'quantity',
+        'unit_price',
+        'subtotal',
+    ];
+
+    public $timestamps = false; // table has no timestamps
+}
