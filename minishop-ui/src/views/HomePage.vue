@@ -16,7 +16,7 @@
       
       <!-- Products Grid -->
       <div v-else class="row g-4">
-        <div v-for="product in products" :key="product.product_id" class="col-lg-4 col-md-6">
+        <div v-for="product in products" :key="product.id" class="col-lg-4 col-md-6">
           <div class="product-card hover-shadow">
             <div class="product-image-wrapper">
               <img 
@@ -36,7 +36,7 @@
               </div>
               <div class="button-group">
                 <router-link 
-                  :to="`/product/${product.product_id}`" 
+                  :to="`/product/${product.id}`" 
                   class="btn btn-outline-primary btn-modern"
                 >
                   <i class="bi bi-eye me-2"></i>

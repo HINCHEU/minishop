@@ -34,8 +34,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="product in products" :key="product.product_id" class="table-row">
-                <td class="col-id"><span class="id-badge">{{ product.product_id }}</span></td>
+              <tr v-for="product in products" :key="product.id" class="table-row">
+                <td class="col-id"><span class="id-badge">{{ product.id }}</span></td>
                 <td class="col-name"><strong>{{ product.name }}</strong></td>
                 <td class="col-price"><span class="price-highlight">${{ parseFloat(product.price).toFixed(2) }}</span></td>
                 <td class="col-stock">
@@ -51,7 +51,7 @@
                 <td class="col-actions">
                   <div class="action-buttons">
                     <router-link 
-                      :to="`/admin/products/${product.product_id}/edit`" 
+                      :to="`/admin/products/${product.id}/edit`" 
                       class="btn-icon btn-edit"
                       title="Edit Product"
                     >
@@ -59,7 +59,7 @@
                     </router-link>
                     <button 
                       class="btn-icon btn-delete" 
-                      @click="deleteProduct(product.product_id)"
+                      @click="deleteProduct(product.id)"
                       title="Delete Product"
                     >
                       <i class="bi bi-trash"></i>
