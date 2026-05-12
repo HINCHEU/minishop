@@ -1,0 +1,62 @@
+version: '3.9'
+
+services:
+  # MySQL Database
+  db:
+    image: mysql:8.0-alpine
+    container_name: minishop-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: mini_shop
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_PASSWORD: password
+      MYSQL_USER: minishop_user
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - minishop
+
+  # Laravel Backend
+  backend:
+    build:
+      context: ./minishop-backend
+      dockerfile: Dockerfile
+    container_name: minishop-backend
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    environment:
+      - APP_ENV=local
+      - DB_HOST=db
+      - DB_DATABASE=mini_shop
+      - DB_USERNAME=minishop_user
+      - DB_PASSWORD=password
+    volumes:
+      - ./minishop-backend:/app
+    depends_on:
+      - db
+    networks:
+      - minishop
+
+  # Vue Frontend
+  frontend:
+    build:
+      context: ./minishop-ui
+      dockerfile: Dockerfile
+    container_name: minishop-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - minishop
+
+volumes:
+  db_data:
+
+networks:
+  minishop:
+    driver: bridge
